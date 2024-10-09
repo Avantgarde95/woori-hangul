@@ -60,7 +60,7 @@ export const PageButton = styled.button`
   padding: 12px 0;
   font-size: 16px;
   border-radius: 8px;
-  color: ${({ theme }) => theme.color.background};
+  color: #ffffff;
   background-color: ${({ theme }) => theme.color.primary};
 
   animation: ${buttonAnimation} 0.3s linear forwards;

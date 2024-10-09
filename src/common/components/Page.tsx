@@ -2,12 +2,13 @@ import { ReactNode } from "react";
 import styled from "@emotion/styled";
 
 interface PageProps {
+  backgroundColor: string;
   children: ReactNode;
 }
 
-const Page = ({ children }: PageProps) => (
+const Page = ({ backgroundColor, children }: PageProps) => (
   <Container>
-    <Content>{children}</Content>
+    <Content style={{ backgroundColor }}>{children}</Content>
   </Container>
 );
 
@@ -37,7 +38,6 @@ const Content = styled.div`
   padding: 12px;
 
   color: ${({ theme }) => theme.color.primary};
-  background-color: ${({ theme }) => theme.color.background};
   border-radius: 12px;
 
   @media screen and (min-width: ${maxPageWidth}px) {

@@ -49,12 +49,12 @@ const QuizPage = ({ levelTables }: QuizPageProps) => {
   const [currentLevel, setCurrentLevel] = useState(0);
 
   return (
-    <Page>
+    <Page backgroundColor="#dcdbdb">
       {levelTables && (
         <Level
           key={currentLevel} // Hack: Reset the component.
           level={currentLevel}
-          maxTime={3}
+          maxTime={4}
           table={levelTables[currentLevel]}
           onNext={() => {
             setCurrentLevel(currentLevel + 1);

@@ -9,7 +9,7 @@ const HomePage = () => {
   const router = useRouter();
 
   return (
-    <Page>
+    <Page backgroundColor="#f3f3f3">
       <Spacing height="32px" />
       <SmallTitle>한글날 기념</SmallTitle>
       <LargeTitle>다른 글자 찾기</LargeTitle>

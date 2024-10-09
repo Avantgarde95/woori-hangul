@@ -1,15 +1,11 @@
 import { RecoilRoot } from "recoil";
 import { AppProps } from "next/app";
-import { Noto_Sans_KR, Jua } from "next/font/google";
 import { css, Global, Theme, ThemeProvider } from "@emotion/react";
-
-const font = Jua({ weight: ["400"], subsets: ["latin"] });
 
 const defaultTheme: Theme = {
   color: {
     primary: "#2a2a2a",
     highlight: "#797878",
-    background: "#dcdbdb",
     right: "#3079c3",
     wrong: "#f85d5d",
   },
