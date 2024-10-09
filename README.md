@@ -2,12 +2,14 @@
 
 토스 한글날 이벤트 패러디 - 우리들교회 버전
 
+![Screenshot](Screenshot.png)
+
 ## How to run
 
 Must install
 
 - [Node.js](https://nodejs.org/)
-- [yarn (yarn classic)](https://classic.yarnpkg.com/en/docs/install)
+- [yarn](https://yarnpkg.com/)
 
 Recommended to install
 

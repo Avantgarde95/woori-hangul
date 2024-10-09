@@ -26,11 +26,6 @@ const Success = () => {
   );
 };
 
-const Title = styled.div`
-  font-size: 24px;
-  font-weight: bold;
-`;
-
 const fadeInAnimation = keyframes`
   0% {
     opacity: 0;
@@ -40,12 +35,17 @@ const fadeInAnimation = keyframes`
   }
 `;
 
+const Title = styled.div`
+  font-size: 24px;
+  font-weight: bold;
+
+  animation: ${fadeInAnimation} 0.8s linear forwards;
+`;
+
 const Icon = styled.img`
   width: 120px;
   transform: rotate(15deg);
   transform-origin: center;
-
-  animation: ${fadeInAnimation} 0.8s linear forwards;
 `;
 
 export default Success;
