@@ -138,7 +138,7 @@ const Grid = styled.div`
 
   width: 100%;
   height: 100%;
-  max-width: 280px;
+  max-width: 300px;
   max-height: 480px;
   flex: 1;
 `;

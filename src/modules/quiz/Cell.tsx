@@ -16,6 +16,8 @@ const Cell = ({ cell, levelStatus, setLevelStatus }: CellProps) => {
   const [borderColor, setBorderColor] = useState<string>("transparent");
   const disable = levelStatus !== "Running";
 
+  const textParts = [cell.text.substring(0, 2), cell.text.substring(2)];
+
   // 실패 시 정답 보여주기.
   useEffect(() => {
     if (levelStatus === "Fail" && cell.isAnswer) {
@@ -43,7 +45,9 @@ const Cell = ({ cell, levelStatus, setLevelStatus }: CellProps) => {
         borderColor,
       }}
     >
-      {cell.text}
+      {textParts.map((part, i) => (
+        <TextPart key={i}>{part}</TextPart>
+      ))}
     </CellButton>
   );
 };
@@ -63,6 +67,10 @@ const CellButton = styled.button`
   border-style: solid;
 
   transition: border-color 1s;
+`;
+
+const TextPart = styled.span`
+  display: inline-block;
 `;
 
 export default Cell;
