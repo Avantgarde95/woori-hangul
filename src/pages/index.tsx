@@ -16,7 +16,7 @@ const HomePage = () => {
       <Fill />
       <Logo src="/resources/church-logo.svg" />
       <Spacing height="32px" />
-      <Description>'2024 토스 한글날 이벤트'를 따라했습니다.</Description>
+      <Description>2024 토스 한글날 이벤트를 따라했습니다.</Description>
       <Fill />
       <PageButton
         onClick={() => {

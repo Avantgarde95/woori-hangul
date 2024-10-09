@@ -1,25 +1,6 @@
-# avant-template
+# woori-hangul
 
-Template for using...
-
-- React, Emotion, TypeScript, Recoil, Next.js, ESLint, Prettier, Yarn 1 or 2
-
-## How to use
-
-- Run `node create`
-- After you're done, you're free to delete "create.js".
-
-## Files
-
-- create.js: Setup script
-  - Configure Git
-  - Create package.json
-  - Install the dependencies
-- Other files (.vscode, src, ...): Project template. You can edit them freely.
-
----
-
-# README template
+토스 한글날 이벤트 패러디 - 우리들교회 버전
 
 ## How to run
 
