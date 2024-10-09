@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { GetServerSideProps } from "next";
 import { random, sample, sampleSize } from "lodash";
 
 import Page from "common/components/Page";
@@ -40,21 +41,12 @@ function generateQuiz(levels: Array<{ dimensionX: number; dimensionY: number }>)
   return levelTables;
 }
 
-const QuizPage = () => {
-  const [levelTables, setLevelTables] = useState<Array<LevelTable> | null>(null);
-  const [currentLevel, setCurrentLevel] = useState(0);
+interface QuizPageProps {
+  levelTables: Array<LevelTable>;
+}
 
-  useEffect(() => {
-    setLevelTables(
-      generateQuiz([
-        { dimensionX: 2, dimensionY: 2 },
-        { dimensionX: 2, dimensionY: 3 },
-        { dimensionX: 3, dimensionY: 3 },
-        { dimensionX: 3, dimensionY: 4 },
-        { dimensionX: 4, dimensionY: 4 },
-      ]),
-    );
-  }, [setLevelTables]);
+const QuizPage = ({ levelTables }: QuizPageProps) => {
+  const [currentLevel, setCurrentLevel] = useState(0);
 
   return (
     <Page>
@@ -71,6 +63,22 @@ const QuizPage = () => {
       )}
     </Page>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const levelTables = generateQuiz([
+    { dimensionX: 2, dimensionY: 2 },
+    { dimensionX: 2, dimensionY: 3 },
+    { dimensionX: 3, dimensionY: 3 },
+    { dimensionX: 3, dimensionY: 4 },
+    { dimensionX: 4, dimensionY: 4 },
+  ]);
+
+  return {
+    props: {
+      levelTables,
+    },
+  };
 };
 
 export default QuizPage;
