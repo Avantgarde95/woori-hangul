@@ -57,7 +57,7 @@ export const PageButton = styled.button`
   box-sizing: border-box;
 
   width: 100%;
-  padding: 12px 0;
+  padding: 14px 0;
   font-size: 16px;
   border-radius: 8px;
   color: #ffffff;
