@@ -1,5 +1,7 @@
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import styled from "@emotion/styled";
+import { keyframes } from "@emotion/react";
+
 import { buttonFix } from "common/styles/Common";
 
 interface SpacingProps {
@@ -40,6 +42,15 @@ export function useInput(defaultValue: string): [string, HandleChangeInput, Disp
   return [value, handleChangeValue, setValue];
 }
 
+const buttonAnimation = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
 export const PageButton = styled.button`
   ${buttonFix}
 
@@ -51,6 +62,8 @@ export const PageButton = styled.button`
   border-radius: 8px;
   color: ${({ theme }) => theme.color.background};
   background-color: ${({ theme }) => theme.color.primary};
+
+  animation: ${buttonAnimation} 0.3s linear forwards;
 
   &:hover,
   &:active {

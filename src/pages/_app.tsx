@@ -9,7 +9,7 @@ const defaultTheme: Theme = {
   color: {
     primary: "#2a2a2a",
     highlight: "#797878",
-    background: "#f3f3f3",
+    background: "#dcdbdb",
     right: "#3079c3",
     wrong: "#f85d5d",
   },
