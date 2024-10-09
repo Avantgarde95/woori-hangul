@@ -5,10 +5,10 @@ import { random, sample, sampleSize } from "lodash";
 import Page from "common/components/Page";
 import allAnswers from "common/models/AllAnswers";
 import Level, { LevelCell, LevelTable } from "modules/quiz/Level";
+import Success from "modules/quiz/Success";
 
 function generateQuiz(levels: Array<{ dimensionX: number; dimensionY: number }>) {
   const pickedAnswers = sampleSize(allAnswers, levels.length);
-
   const levelTables: Array<LevelTable> = [];
 
   // For each level...
@@ -48,20 +48,22 @@ interface QuizPageProps {
 const QuizPage = ({ levelTables }: QuizPageProps) => {
   const [currentLevel, setCurrentLevel] = useState(0);
 
-  return (
-    <Page backgroundColor="#dcdbdb">
-      {levelTables && (
-        <Level
-          key={currentLevel} // 컴포넌트 풀 리셋하는 hack.
-          level={currentLevel}
-          maxTime={4}
-          table={levelTables[currentLevel]}
-          onNext={() => {
-            setCurrentLevel(currentLevel + 1);
-          }}
-        />
-      )}
+  const isFinished = currentLevel >= levelTables.length;
+
+  return !isFinished ? (
+    <Page backgroundColor="#e2e2e2">
+      <Level
+        key={currentLevel} // 컴포넌트 풀 리셋하는 hack.
+        level={currentLevel}
+        maxTime={4}
+        table={levelTables[currentLevel]}
+        onNext={() => {
+          setCurrentLevel(currentLevel + 1);
+        }}
+      />
     </Page>
+  ) : (
+    <Success />
   );
 };
 

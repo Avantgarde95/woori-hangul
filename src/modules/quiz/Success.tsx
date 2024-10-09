@@ -5,29 +5,31 @@ import { useRouter } from "next/router";
 import { Fill, PageButton, Spacing } from "common/components/Common";
 import Page from "common/components/Page";
 
-const HomePage = () => {
+const Success = () => {
   const router = useRouter();
 
   return (
     <Page backgroundColor="#f4f4f4">
       <Spacing height="32px" />
-      <SmallTitle>한글날 기념</SmallTitle>
-      <LargeTitle>다른 글자 찾기</LargeTitle>
+      <Title>모든 레벨을 클리어했습니다!</Title>
       <Fill />
-      <Logo src="/resources/church-logo.svg" />
-      <Spacing height="32px" />
-      <Description>2024 토스 한글날 이벤트를 따라했습니다.</Description>
+      <Icon>🎉</Icon>
       <Fill />
       <PageButton
         onClick={() => {
-          router.push("/quiz");
+          router.push("/");
         }}
       >
-        시작하기
+        처음으로
       </PageButton>
     </Page>
   );
 };
+
+const Title = styled.div`
+  font-size: 24px;
+  font-weight: bold;
+`;
 
 const fadeInAnimation = keyframes`
   0% {
@@ -38,24 +40,10 @@ const fadeInAnimation = keyframes`
   }
 `;
 
-const SmallTitle = styled.div`
-  font-size: 20px;
-`;
-
-const LargeTitle = styled.div`
-  font-size: 32px;
-  font-weight: bold;
+const Icon = styled.div`
+  font-size: 120px;
 
   animation: ${fadeInAnimation} 0.8s linear forwards;
 `;
 
-const Logo = styled.img`
-  width: 180px;
-  max-width: 80%;
-`;
-
-const Description = styled.div`
-  font-size: 16px;
-`;
-
-export default HomePage;
+export default Success;

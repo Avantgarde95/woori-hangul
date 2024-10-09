@@ -50,7 +50,7 @@ const Level = ({ level, maxTime, table, onNext }: LevelProps) => {
       </PageButton>
     );
   } else if (status === "Success") {
-    pageButton = <PageButton onClick={onNext}>다음 레벨로!</PageButton>;
+    pageButton = <PageButton onClick={onNext}>다음으로!</PageButton>;
   }
 
   return (
