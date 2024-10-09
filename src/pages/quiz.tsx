@@ -52,7 +52,7 @@ const QuizPage = ({ levelTables }: QuizPageProps) => {
     <Page backgroundColor="#dcdbdb">
       {levelTables && (
         <Level
-          key={currentLevel} // Hack: Reset the component.
+          key={currentLevel} // 컴포넌트 풀 리셋하는 hack.
           level={currentLevel}
           maxTime={4}
           table={levelTables[currentLevel]}
@@ -66,6 +66,9 @@ const QuizPage = ({ levelTables }: QuizPageProps) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
+  // 랜덤한 데이터 - 서버에서 생성.
+  // 클라에서 생성 시 mismatch 에러 발생.
+  // https://velog.io/@kingth/Next.js-getStaticProps-vs-getServerSideProps
   const levelTables = generateQuiz([
     { dimensionX: 2, dimensionY: 2 },
     { dimensionX: 2, dimensionY: 3 },

@@ -1,15 +1,16 @@
 import { ReactNode, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { keyframes, useTheme } from "@emotion/react";
+import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 
-import { Fill, PageButton, Spacing } from "common/components/Common";
-import { buttonFix } from "common/styles/Common";
+import { Fill, PageButton } from "common/components/Common";
+import LevelTitle from "modules/quiz/LevelTitle";
+import Cell from "modules/quiz/Cell";
 
 export type LevelCell = { text: string; isAnswer: boolean };
 export type LevelTable = Array<Array<LevelCell>>;
 
-type LevelStatus = "Running" | "Success" | "Fail";
+export type LevelStatus = "Running" | "Success" | "Fail";
 
 interface LevelProps {
   level: number;
@@ -21,15 +22,13 @@ interface LevelProps {
 const Level = ({ level, maxTime, table, onNext }: LevelProps) => {
   const [status, setStatus] = useState<LevelStatus>("Running");
   const router = useRouter();
-  const theme = useTheme();
 
+  // 시간 다 되면 fail.
   useEffect(() => {
     if (status === "Running") {
-      const handler = () => {
+      const timeoutID = setTimeout(() => {
         setStatus("Fail");
-      };
-
-      const timeoutID = setTimeout(handler, maxTime * 1000);
+      }, maxTime * 1000);
 
       return () => {
         clearTimeout(timeoutID);
@@ -37,18 +36,36 @@ const Level = ({ level, maxTime, table, onNext }: LevelProps) => {
     }
   }, [status]);
 
+  // 다음 레벨 vs 처음으로.
+  let pageButton: ReactNode = null;
+
+  if (status === "Fail") {
+    pageButton = (
+      <PageButton
+        onClick={() => {
+          router.push("/");
+        }}
+      >
+        처음으로
+      </PageButton>
+    );
+  } else if (status === "Success") {
+    pageButton = <PageButton onClick={onNext}>다음 레벨로!</PageButton>;
+  }
+
   return (
     <>
       <Timer>
         <TimerBar
           style={{
             animationDuration: `${maxTime}s`,
+            // 시간 안에 끝나면 타이머 멈춤.
             animationPlayState: status === "Running" ? "running" : "paused",
           }}
         />
       </Timer>
       <Header>
-        <Title level={level} levelStatus={status} />
+        <LevelTitle level={level} levelStatus={status} />
       </Header>
       <GridArea>
         <Grid>
@@ -63,16 +80,7 @@ const Level = ({ level, maxTime, table, onNext }: LevelProps) => {
       </GridArea>
       <Footer>
         <Fill />
-        {status === "Fail" && (
-          <PageButton
-            onClick={() => {
-              router.push("/");
-            }}
-          >
-            처음으로
-          </PageButton>
-        )}
-        {status === "Success" && <PageButton onClick={onNext}>다음 레벨로!</PageButton>}
+        {pageButton}
       </Footer>
     </>
   );
@@ -113,47 +121,6 @@ const Header = styled.div`
   height: 64px;
 `;
 
-interface TitleProps {
-  level: number;
-  levelStatus: LevelStatus;
-}
-
-const Title = ({ level, levelStatus }: TitleProps) => {
-  const theme = useTheme();
-
-  let statusText: ReactNode = null;
-
-  if (levelStatus === "Success") {
-    statusText = <TitleStatus style={{ color: theme.color.right }}>성공</TitleStatus>;
-  } else if (levelStatus === "Fail") {
-    statusText = <TitleStatus style={{ color: theme.color.wrong }}>실패</TitleStatus>;
-  }
-
-  return (
-    <TitleText>
-      레벨 {level + 1} {statusText}
-    </TitleText>
-  );
-};
-
-const TitleText = styled.div`
-  font-size: 24px;
-  font-weight: bold;
-`;
-
-const titleAnimation = keyframes`
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`;
-
-const TitleStatus = styled.span`
-  animation: ${titleAnimation} 0.3s linear forwards;
-`;
-
 const GridArea = styled.div`
   display: flex;
   flex-direction: column;
@@ -181,65 +148,6 @@ const Row = styled.div`
   flex-direction: row;
   flex: 1;
   gap: 4px;
-`;
-
-interface CellProps {
-  cell: LevelCell;
-  levelStatus: LevelStatus;
-  setLevelStatus: (value: LevelStatus) => void;
-}
-
-const Cell = ({ cell, levelStatus, setLevelStatus }: CellProps) => {
-  const theme = useTheme();
-  const [borderColor, setBorderColor] = useState<string>("transparent");
-  const disable = levelStatus !== "Running";
-
-  useEffect(() => {
-    if (levelStatus === "Fail" && cell.isAnswer) {
-      setBorderColor(theme.color.right);
-    }
-  }, [levelStatus]);
-
-  return (
-    <CellButton
-      disabled={disable}
-      onClick={() => {
-        if (disable) {
-          return;
-        }
-
-        if (cell.isAnswer) {
-          setLevelStatus("Success");
-          setBorderColor(theme.color.right);
-        } else {
-          setLevelStatus("Fail");
-          setBorderColor(theme.color.wrong);
-        }
-      }}
-      style={{
-        borderColor,
-      }}
-    >
-      {cell.text}
-    </CellButton>
-  );
-};
-
-const CellButton = styled.button`
-  ${buttonFix}
-
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-
-  width: 100%;
-  height: 100%;
-  background-color: #ffffff;
-  font-size: 20px;
-  border-radius: 8px;
-  border-width: 3px;
-  border-style: solid;
-
-  transition: border-color 1s;
 `;
 
 const Footer = styled.div`
