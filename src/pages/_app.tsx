@@ -1,5 +1,5 @@
-import { RecoilRoot } from "recoil";
 import { AppProps } from "next/app";
+import Head from "next/head";
 import { css, Global, Theme, ThemeProvider } from "@emotion/react";
 
 const defaultTheme: Theme = {
@@ -36,12 +36,13 @@ const globalStyle = css`
 `;
 
 const App = ({ Component, pageProps }: AppProps) => (
-  <RecoilRoot>
-    <ThemeProvider theme={defaultTheme}>
-      <Global styles={globalStyle} />
-      <Component {...pageProps} />
-    </ThemeProvider>
-  </RecoilRoot>
+  <ThemeProvider theme={defaultTheme}>
+    <Head>
+      <title>한글날 퀴즈 (우리들교회 ver.)</title>
+    </Head>
+    <Global styles={globalStyle} />
+    <Component {...pageProps} />
+  </ThemeProvider>
 );
 
 export default App;

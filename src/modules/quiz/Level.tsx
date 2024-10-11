@@ -34,7 +34,7 @@ const Level = ({ level, maxTime, table, onNext }: LevelProps) => {
         clearTimeout(timeoutID);
       };
     }
-  }, [status]);
+  }, [status, maxTime]);
 
   // 다음 레벨 vs 처음으로.
   let pageButton: ReactNode = null;

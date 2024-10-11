@@ -23,7 +23,7 @@ const Cell = ({ cell, levelStatus, setLevelStatus }: CellProps) => {
     if (levelStatus === "Fail" && cell.isAnswer) {
       setBorderColor(theme.color.right);
     }
-  }, [levelStatus]);
+  }, [levelStatus, cell.isAnswer, theme.color.right]);
 
   return (
     <CellButton

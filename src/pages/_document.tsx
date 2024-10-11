@@ -3,7 +3,6 @@ import { Head, Html, Main, NextScript } from "next/document";
 const Document = () => (
   <Html>
     <Head>
-      <title>한글날 퀴즈 (우리들교회 ver.)</title>
       <link
         rel="stylesheet"
         as="style"
